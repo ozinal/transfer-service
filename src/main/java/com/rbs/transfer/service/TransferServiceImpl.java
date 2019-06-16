@@ -27,6 +27,16 @@ public class TransferServiceImpl implements TransferService {
         return this.doTransfer(sourceAccount, destinationAccoint, input.getAmount());
     }
 
+    @Override
+    public void rollBack(UUID transactionId,
+                         Account sourceAccount,
+                         Account destinationAccount,
+                         BigDecimal amount,
+                         boolean withDrawn,
+                         boolean deposited) throws Exception {
+        throw new UnsupportedOperationException();
+    }
+
     private boolean doTransfer(Account sourceAccount, Account destinationAccount, BigDecimal amount)
             throws Exception {
         return false;
