@@ -1,9 +1,11 @@
 package com.rbs.transfer.validator;
 
 import com.rbs.transfer.domain.Account;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+@Component
 public class TransferValidatorImpl implements TransferValidator {
     @Override
     public void validateAmount(BigDecimal amount) throws Exception {

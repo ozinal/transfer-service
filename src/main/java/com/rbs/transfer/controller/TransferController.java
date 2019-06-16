@@ -23,8 +23,8 @@ public class TransferController {
     }
 
     @PostMapping(value = "/transfer", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity transfer(@RequestBody @Valid final InputData input) {
-        boolean result = transferService.transfer();
+    public ResponseEntity transfer(@RequestBody @Valid final InputData input) throws Exception {
+        boolean result = transferService.transfer(input);
         return new ResponseEntity(result ? HttpStatus.NO_CONTENT : HttpStatus.BAD_REQUEST);
     }
 }

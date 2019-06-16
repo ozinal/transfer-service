@@ -37,7 +37,7 @@ public class TransferControllerTest {
     }
 
     @Test
-    public void transfer_should_return_bad_request() {
+    public void transfer_should_return_bad_request() throws Exception {
         TransferController transferController = new TransferController(transferService);
 
         ResponseEntity actual = transferController.transfer(input);
