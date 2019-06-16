@@ -1,5 +1,6 @@
 package com.rbs.transfer.controller;
 
+import com.rbs.transfer.domain.InputData;
 import com.rbs.transfer.service.TransferService;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +22,9 @@ public class TransferControllerTest {
     private MockMvc mvc;
 
     @Mock
+    private InputData input;
+
+    @Mock
     private TransferService transferService;
 
     @InjectMocks
@@ -35,7 +39,8 @@ public class TransferControllerTest {
     @Test
     public void transfer_should_return_bad_request() {
         TransferController transferController = new TransferController(transferService);
-        ResponseEntity actual = transferController.transfer();
+
+        ResponseEntity actual = transferController.transfer(input);
         assertEquals(HttpStatus.BAD_REQUEST, actual.getStatusCode());
     }
 }
