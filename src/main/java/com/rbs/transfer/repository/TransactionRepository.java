@@ -13,4 +13,9 @@ public interface TransactionRepository {
     List<Transaction> find(String sourceAccountNo, String destinationAccountNo);
 
     UUID add(String sourceAccountNo, String destinationAccountNo, BigDecimal amount);
+
+    boolean failed(UUID id);
+    boolean succeed(UUID id);
+
+    boolean delete(UUID id);
 }

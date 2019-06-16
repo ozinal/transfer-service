@@ -72,4 +72,58 @@ public class TransactionRepositoryImplTest {
             assertEquals(destinationAccountNo_1, transaction.getDestinationAccountNo());
         });
     }
+
+    @Test
+    public void delete_should_delete_existing_record() {
+        String sourceAccountNo = "17814474";
+        String destinationAccountNo = "25177449";
+        BigDecimal transferAmount = new BigDecimal(100.10);
+
+        UUID existingId = this.transactionRepository.add(sourceAccountNo, destinationAccountNo, transferAmount);
+
+        boolean actual = this.transactionRepository.delete(existingId);
+
+        assertTrue(actual);
+    }
+
+
+    @Test
+    public void delete_should_not_delete_non_existing_record() {
+        boolean actual = this.transactionRepository.delete(UUID.randomUUID());
+        assertFalse(actual);
+    }
+
+    @Test
+    public void failed_should_create_copy_of_transaction_and_mark_it_as_failed() {
+        String sourceAccountNo = "16854478";
+        String destinationAccountNo = "24477441";
+        BigDecimal transferAmount = new BigDecimal(100.10);
+
+        UUID id = this.transactionRepository.add(sourceAccountNo, destinationAccountNo, transferAmount);
+        boolean actual = this.transactionRepository.failed(id);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void failed_should_not_mark_transansation_as_failed() {
+        boolean actual = this.transactionRepository.failed(UUID.randomUUID());
+        assertFalse(actual);
+    }
+
+    @Test
+    public void succeed_should_create_copy_of_transaction_and_mark_it_as_succeed() {
+        String sourceAccountNo = "16854478";
+        String destinationAccountNo = "24477441";
+        BigDecimal transferAmount = new BigDecimal(100.10);
+
+        UUID id = this.transactionRepository.add(sourceAccountNo, destinationAccountNo, transferAmount);
+        boolean actual = this.transactionRepository.succeed(id);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void succeed_should_not_mark_transansation_as_succeed() {
+        boolean actual = this.transactionRepository.succeed(UUID.randomUUID());
+        assertFalse(actual);
+    }
 }

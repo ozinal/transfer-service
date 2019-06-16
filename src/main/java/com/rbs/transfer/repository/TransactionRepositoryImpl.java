@@ -35,4 +35,35 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         transactions.put(id, transaction);
         return id;
     }
+
+    @Override
+    public boolean failed(UUID id) {
+        if (transactions.containsKey(id)) {
+            Transaction t = transactions.get(id).failed();
+            transactions.remove(id);
+            transactions.put(id, t);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean succeed(UUID id) {
+        if (transactions.containsKey(id)) {
+            Transaction t = transactions.get(id).succeed();
+            transactions.remove(id);
+            transactions.put(id, t);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(UUID id) {
+        if (transactions.containsKey(id)) {
+            transactions.remove(id);
+            return true;
+        }
+        return false;
+    }
 }
