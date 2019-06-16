@@ -51,4 +51,48 @@ public class TransactionTest {
         assertTrue(actual.isSucceed());
         assertFalse(actual.isFailed());
     }
+
+    @Test
+    public void failed_should_return_failed_copy_of_existing_transaction() {
+        UUID id = UUID.randomUUID();
+        String sourceAccountNo = "17854689";
+        String destinationAccountNo = "28645789";
+        BigDecimal amount = BigDecimal.ONE;
+        boolean isSucceed = true;
+        boolean isCompleted = true;
+
+        Transaction response = new Transaction(id, sourceAccountNo, destinationAccountNo, amount, isSucceed, isCompleted);
+
+        Transaction actual = response.failed();
+
+        assertTrue(actual.isFailed());
+        assertFalse(actual.isSucceed());
+        assertEquals(response.getId(), actual.getId());
+        assertEquals(response.getSourceAccountNo(), actual.getSourceAccountNo());
+        assertEquals(response.getDestinationAccountNo(), actual.getDestinationAccountNo());
+        assertEquals(response.getAmount(), actual.getAmount());
+        Assertions.assertThat(response).isNotSameAs(actual);
+    }
+
+    @Test
+    public void succeed_should_return_succeed_copy_of_existing_transaction() {
+        UUID id = UUID.randomUUID();
+        String sourceAccountNo = "17854689";
+        String destinationAccountNo = "28645789";
+        BigDecimal amount = BigDecimal.ONE;
+        boolean isSucceed = false;
+        boolean isCompleted = false;
+
+        Transaction response = new Transaction(id, sourceAccountNo, destinationAccountNo, amount, isSucceed, isCompleted);
+
+        Transaction actual = response.succeed();
+
+        assertFalse(actual.isFailed());
+        assertTrue(actual.isSucceed());
+        assertEquals(response.getId(), actual.getId());
+        assertEquals(response.getSourceAccountNo(), actual.getSourceAccountNo());
+        assertEquals(response.getDestinationAccountNo(), actual.getDestinationAccountNo());
+        assertEquals(response.getAmount(), actual.getAmount());
+        Assertions.assertThat(response).isNotSameAs(actual);
+    }
 }

@@ -3,6 +3,10 @@ package com.rbs.transfer.domain;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+/**
+ * Holds the transaction state, failed() and succeed() methods returns state of existing transactions
+ *
+ */
 public class Transaction {
 
     private final UUID id;
@@ -63,5 +67,23 @@ public class Transaction {
 
     public boolean isFailed() {
         return isCompleted && !isSucceed;
+    }
+
+    public Transaction failed() {
+        return new Transaction(this.id,
+                this.sourceAccountNo,
+                this.destinationAccountNo,
+                this.amount,
+                false,
+                true);
+    }
+
+    public Transaction succeed() {
+        return new Transaction(this.id,
+                this.sourceAccountNo,
+                this.destinationAccountNo,
+                this.amount,
+                true,
+                true);
     }
 }
