@@ -1,6 +1,7 @@
 package com.rbs.transfer.repository;
 
 import com.rbs.transfer.domain.Account;
+import com.rbs.transfer.exception.AccountNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -28,7 +29,7 @@ public class AccountRepositoryImplTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void find_should_return_account_which_exists() {
 
         String accountNo = "1878546";
@@ -40,6 +41,8 @@ public class AccountRepositoryImplTest {
         this.accountRepository.deposit(account, depositAmount);
 
         Account actual = this.accountRepository.findById(accountNo);
+        assertEquals(depositAmount, actual.getBalance());
+        assertEquals(accountNo, account.getAccountNo());
     }
 
     @Test
@@ -54,7 +57,9 @@ public class AccountRepositoryImplTest {
 
         BigDecimal remainingBalance = this.accountRepository.withdraw(mockedSourceAccount, withdrawAmount);
 
-        assertEquals(BigDecimal.ZERO, remainingBalance);
+        BigDecimal expectedBalance = balance.subtract(withdrawAmount);
+
+        assertEquals(expectedBalance, remainingBalance);
     }
 
     @Test
@@ -68,6 +73,25 @@ public class AccountRepositoryImplTest {
 
         BigDecimal remainingBalance = this.accountRepository.deposit(mockedDestinationAccount, depositAmount);
 
-        assertEquals(BigDecimal.ZERO, remainingBalance);
+        BigDecimal expectedBalance = balance.add(depositAmount);
+
+        assertEquals(expectedBalance, remainingBalance);
+    }
+
+    @Test(expected = AccountNotFoundException.class)
+    public void withdraw_should_throw_AccountNotFoundException_when_balance_update() {
+        Mockito.when(this.mockedSourceAccount.getBalance()).thenReturn(BigDecimal.TEN);
+        Mockito.doThrow(AccountNotFoundException.class).when(this.mockedSourceAccount).update(Mockito.any(BigDecimal.class));
+
+        this.accountRepository.withdraw(this.mockedSourceAccount, BigDecimal.ONE);
+    }
+
+
+    @Test(expected = AccountNotFoundException.class)
+    public void deposit_should_throw_AccountNotFoundException_when_balance_update() {
+        Mockito.when(this.mockedDestinationAccount.getBalance()).thenReturn(BigDecimal.TEN);
+        Mockito.doThrow(AccountNotFoundException.class).when(this.mockedDestinationAccount).update(Mockito.any(BigDecimal.class));
+
+        this.accountRepository.withdraw(this.mockedDestinationAccount, BigDecimal.ONE);
     }
 }
