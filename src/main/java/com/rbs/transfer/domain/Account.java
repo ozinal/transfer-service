@@ -1,6 +1,6 @@
 package com.rbs.transfer.domain;
 
-import java.math.BigDecimal;
+        import java.math.BigDecimal;
 
 public class Account {
 
