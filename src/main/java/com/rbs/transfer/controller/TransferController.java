@@ -1,6 +1,7 @@
 package com.rbs.transfer.controller;
 
 import com.rbs.transfer.domain.InputData;
+import com.rbs.transfer.exception.TransferRollbackException;
 import com.rbs.transfer.service.TransferService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,7 +24,7 @@ public class TransferController {
     }
 
     @PostMapping(value = "/transfer", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity transfer(@RequestBody @Valid final InputData input) throws Exception {
+    public ResponseEntity transfer(@RequestBody @Valid final InputData input) throws Exception, TransferRollbackException {
         boolean result = transferService.transfer(input);
         return new ResponseEntity(result ? HttpStatus.NO_CONTENT : HttpStatus.BAD_REQUEST);
     }

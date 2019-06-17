@@ -1,6 +1,7 @@
 package com.rbs.transfer.controller;
 
 import com.rbs.transfer.domain.InputData;
+import com.rbs.transfer.exception.TransferRollbackException;
 import com.rbs.transfer.service.TransferService;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +38,7 @@ public class TransferControllerTest {
     }
 
     @Test
-    public void transfer_should_return_bad_request() throws Exception {
+    public void transfer_should_return_bad_request() throws Exception, TransferRollbackException {
         TransferController transferController = new TransferController(transferService);
 
         ResponseEntity actual = transferController.transfer(input);
