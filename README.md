@@ -10,7 +10,7 @@ $ ./gradlew clean build
 ```
 ##
 
-![Input Diagram](diagram/input.png)
+![Input Diagram](https://ozinal.github.io/transfer-service/)
 
 ## Input Validation
 There are three mandatory parameters which needs to be passed through the service.
