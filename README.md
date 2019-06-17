@@ -3,6 +3,8 @@ The microservice aims to transfer funds between internal accounts.
 
 Please make sure you've installed gradle and use the commands below to build microservice.
 
+[Click here for JavaDoc.](docs/index.html)
+
 ```
 $ ./gradlew clean build
 ```

@@ -1,0 +1,10 @@
+com.rbs.transfer
+com.rbs.transfer.controller
+com.rbs.transfer.domain
+com.rbs.transfer.exception
+com.rbs.transfer.exception.handler
+com.rbs.transfer.repository
+com.rbs.transfer.service
+com.rbs.transfer.utils
+com.rbs.transfer.validator
+com.rbs.util
