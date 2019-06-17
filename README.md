@@ -3,14 +3,14 @@ The microservice aims to transfer funds between internal accounts.
 
 Please make sure you've installed gradle and use the commands below to build microservice.
 
-[Click here for JavaDoc.](docs/index.html)
+[Click here for JavaDoc.](https://ozinal.github.io/transfer-service/)
 
 ```
 $ ./gradlew clean build
 ```
 ##
 
-![Input Diagram](https://ozinal.github.io/transfer-service/)
+![Input Diagram](diagram/input.png)
 
 ## Input Validation
 There are three mandatory parameters which needs to be passed through the service.
